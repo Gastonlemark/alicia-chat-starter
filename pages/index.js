@@ -6,18 +6,19 @@ export default function Home() {
 
   const enviarMensaje = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api', {
+    const res = await fetch('/api/alicia', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mensaje }),
+      body: JSON.stringify({ message: mensaje }),
     });
 
     const data = await res.json();
-    setRespuesta(data.respuesta);
+    setRespuesta(data.reply);
+    setMensaje(''); // Limpia el input después de enviar
   };
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+    <div style={{ padding: '2rem', fontFamily: 'sans-serif', maxWidth: '600px', margin: 'auto' }}>
       <h1>Hola, soy Alicia</h1>
       <p>Estoy lista para conversar contigo, Juan Pablo 💙</p>
       <form onSubmit={enviarMensaje}>
@@ -51,7 +52,7 @@ export default function Home() {
         </button>
       </form>
       {respuesta && (
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: '2rem', whiteSpace: 'pre-line' }}>
           <strong>Alicia responde:</strong>
           <p>{respuesta}</p>
         </div>
