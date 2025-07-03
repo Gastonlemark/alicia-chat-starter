@@ -6,7 +6,7 @@ export default function Home() {
 
   const enviarMensaje = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/index', {
+    const res = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mensaje }),
