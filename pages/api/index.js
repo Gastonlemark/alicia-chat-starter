@@ -37,15 +37,23 @@ export default async function handler(req, res) {
       }),
     });
 
-    const data = await response.json();
+const data = await response.json();
 
-    if (data.error) {
-      return res.status(500).json({ error: data.error.message });
-    }
+console.log("Respuesta completa de OpenAI:", JSON.stringify(data, null, 2)); // 👈 NUEVO
 
-    const reply = data.choices?.[0]?.message?.content || 'Lo siento, no entendí...';
-    console.log("Respuesta de OpenAI:", reply);
-    res.status(200).json({ reply });
+if (data.error) {
+  console.error("Error en la respuesta de OpenAI:", data.error.message);
+  return res.status(500).json({ error: data.error.message });
+}
+
+const reply = data.choices?.[0]?.message?.content;
+console.log("Respuesta final elegida:", reply);
+
+if (!reply) {
+  return res.status(200).json({ reply: '' });
+}
+
+res.status(200).json({ reply });
   } catch (error) {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
