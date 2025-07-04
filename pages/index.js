@@ -23,7 +23,6 @@ export default function Home() {
     setHistorial([...nuevoHistorial, { autor: 'Alicia', texto: data.reply }]);
   };
 
-  // Scroll automático hacia abajo
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
